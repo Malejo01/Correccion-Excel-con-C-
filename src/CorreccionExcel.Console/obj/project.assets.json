@@ -2116,8 +2116,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "c:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Application\\CorreccionExcel.Application.csproj": {
-              "projectPath": "c:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Application\\CorreccionExcel.Application.csproj"
+            "C:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Application\\CorreccionExcel.Application.csproj": {
+              "projectPath": "C:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Application\\CorreccionExcel.Application.csproj"
             },
             "c:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Core\\CorreccionExcel.Core.csproj": {
               "projectPath": "c:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Core\\CorreccionExcel.Core.csproj"

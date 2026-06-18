@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Application\\CorreccionExcel.Application.csproj": {}
+    "C:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Application\\CorreccionExcel.Application.csproj": {}
   },
   "projects": {
-    "c:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Application\\CorreccionExcel.Application.csproj": {
+    "C:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Application\\CorreccionExcel.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Application\\CorreccionExcel.Application.csproj",
+        "projectUniqueName": "C:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Application\\CorreccionExcel.Application.csproj",
         "projectName": "CorreccionExcel.Application",
-        "projectPath": "c:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Application\\CorreccionExcel.Application.csproj",
+        "projectPath": "C:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Application\\CorreccionExcel.Application.csproj",
         "packagesPath": "C:\\Users\\lizar\\.nuget\\packages\\",
-        "outputPath": "c:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Application\\obj\\",
+        "outputPath": "C:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
