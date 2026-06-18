@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CorreccionExcel.Application/CorreccionExcel.Application.csproj" />
+    <Project Path="src/CorreccionExcel.Console/CorreccionExcel.Console.csproj" />
+    <Project Path="src/CorreccionExcel.Core/CorreccionExcel.Core.csproj" />
+    <Project Path="src/CorreccionExcel.Infrastructure/CorreccionExcel.Infrastructure.csproj" />
+  </Folder>
+</Solution>
