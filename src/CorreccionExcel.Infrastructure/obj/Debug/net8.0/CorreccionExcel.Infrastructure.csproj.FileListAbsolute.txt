@@ -13,3 +13,4 @@ C:\Programacion\Correccion Excel con C#\src\CorreccionExcel.Infrastructure\obj\D
 C:\Programacion\Correccion Excel con C#\src\CorreccionExcel.Infrastructure\obj\Debug\net8.0\refint\CorreccionExcel.Infrastructure.dll
 C:\Programacion\Correccion Excel con C#\src\CorreccionExcel.Infrastructure\obj\Debug\net8.0\CorreccionExcel.Infrastructure.pdb
 C:\Programacion\Correccion Excel con C#\src\CorreccionExcel.Infrastructure\obj\Debug\net8.0\ref\CorreccionExcel.Infrastructure.dll
+c:\Programacion\Correccion Excel con C#\src\CorreccionExcel.Infrastructure\obj\Debug\net8.0\CorreccionExcel.Infrastructure.sourcelink.json

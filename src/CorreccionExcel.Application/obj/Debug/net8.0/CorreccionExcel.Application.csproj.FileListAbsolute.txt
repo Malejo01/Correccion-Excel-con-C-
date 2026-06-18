@@ -13,3 +13,4 @@ C:\Programacion\Correccion Excel con C#\src\CorreccionExcel.Application\obj\Debu
 C:\Programacion\Correccion Excel con C#\src\CorreccionExcel.Application\obj\Debug\net8.0\refint\CorreccionExcel.Application.dll
 C:\Programacion\Correccion Excel con C#\src\CorreccionExcel.Application\obj\Debug\net8.0\CorreccionExcel.Application.pdb
 C:\Programacion\Correccion Excel con C#\src\CorreccionExcel.Application\obj\Debug\net8.0\ref\CorreccionExcel.Application.dll
+c:\Programacion\Correccion Excel con C#\src\CorreccionExcel.Application\obj\Debug\net8.0\CorreccionExcel.Application.sourcelink.json

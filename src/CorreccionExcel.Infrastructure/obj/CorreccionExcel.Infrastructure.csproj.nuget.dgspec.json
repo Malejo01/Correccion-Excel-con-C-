@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Infrastructure\\CorreccionExcel.Infrastructure.csproj": {}
+    "c:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Infrastructure\\CorreccionExcel.Infrastructure.csproj": {}
   },
   "projects": {
     "c:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Core\\CorreccionExcel.Core.csproj": {
@@ -69,14 +69,14 @@
         }
       }
     },
-    "C:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Infrastructure\\CorreccionExcel.Infrastructure.csproj": {
+    "c:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Infrastructure\\CorreccionExcel.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Infrastructure\\CorreccionExcel.Infrastructure.csproj",
+        "projectUniqueName": "c:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Infrastructure\\CorreccionExcel.Infrastructure.csproj",
         "projectName": "CorreccionExcel.Infrastructure",
-        "projectPath": "C:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Infrastructure\\CorreccionExcel.Infrastructure.csproj",
+        "projectPath": "c:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Infrastructure\\CorreccionExcel.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\lizar\\.nuget\\packages\\",
-        "outputPath": "C:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Infrastructure\\obj\\",
+        "outputPath": "c:\\Programacion\\Correccion Excel con C#\\src\\CorreccionExcel.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

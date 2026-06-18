@@ -174,7 +174,7 @@ public sealed class ExcelReaderService : IExcelReaderService
                     Columna = col,
                     Direccion = celda.Address,
                     ValorNumerico = valorNumerico,
-                    Formula = string.IsNullOrWhiteSpace(celda.Formula) ? null : celda.Formula,
+                    Formula = string.IsNullOrWhiteSpace(celda.Formula) ? null : NormalizarFormula(celda.Formula),
                     TextoValor = textoValor
                 });
             }
@@ -317,5 +317,11 @@ public sealed class ExcelReaderService : IExcelReaderService
         if (valor is float f) { resultado = f; return true; }
         return double.TryParse(valor.ToString(), System.Globalization.NumberStyles.Any,
             System.Globalization.CultureInfo.InvariantCulture, out resultado);
+    }
+
+    private static string NormalizarFormula(string formula)
+    {
+        string normalizada = formula.Trim();
+        return normalizada.StartsWith('=') ? normalizada : $"={normalizada}";
     }
 }

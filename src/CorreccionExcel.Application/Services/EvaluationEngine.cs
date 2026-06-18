@@ -24,6 +24,11 @@ public sealed class EvaluationEngine : IEvaluationEngine
     private static readonly Regex RegexReferenciaCelda = new(@"\$?[A-Z]{1,3}\$?\d+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
     private static readonly Regex RegexNumero = new(@"\b\d+(?:[\.,]\d+)?\b", RegexOptions.Compiled);
 
+    private static readonly HashSet<string> FuncionesSoporteAlgebraico = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "SUM", "SUMPRODUCT", "SQRT", "POWER", "PRODUCT"
+    };
+
     private static readonly HashSet<string> FuncionesPromedio = new(StringComparer.OrdinalIgnoreCase)
     {
         "AVERAGE", "PROMEDIO"
@@ -221,7 +226,7 @@ public sealed class EvaluationEngine : IEvaluationEngine
             return ConstruirResultado(nombreMetrica, valorEsperado, valorRecalculado, null, null, MetricMatchType.NotFound, pesoBase, 0, "No se encontró celda candidata.");
 
         double valorAlumno = candidata.ValorNumerico!.Value;
-        bool formulaLegitima = IsLegitimateCalculation(candidata, nombreMetrica);
+        bool formulaLegitima = IsLegitimateCalculation(candidata);
 
         if (CoincideConTolerancia(valorAlumno, valorEsperado))
         {
@@ -242,24 +247,48 @@ public sealed class EvaluationEngine : IEvaluationEngine
         return ConstruirResultado(nombreMetrica, valorEsperado, valorRecalculado, valorAlumno, candidata, MetricMatchType.NoMatch, pesoBase, 0, $"Sin coincidencia. Alumno={valorAlumno:F4}, Esperado={valorEsperado:F4}");
     }
 
-    private static bool IsLegitimateCalculation(CeldaNormalizada celda, string nombreMetrica)
+    private static bool IsLegitimateCalculation(CeldaNormalizada celda)
     {
-        if (!celda.TieneFormula || string.IsNullOrWhiteSpace(celda.Formula)) return false;
-        string formula = celda.Formula;
+        if (!celda.TieneFormula || string.IsNullOrWhiteSpace(celda.Formula))
+            return false;
 
-        // Filtro específico por métrica para evitar falsos positivos por cercanía numérica.
-        if (FormulaEsCompatibleConMetrica(formula, nombreMetrica))
+        string formula = celda.Formula.Trim();
+
+        // Regla explícita: fórmula válida debe iniciar con '='.
+        if (!formula.StartsWith('='))
+            return false;
+
+        // Debe referenciar al menos una celda (A5, $L$5, etc.).
+        if (!RegexReferenciaCelda.IsMatch(formula))
+            return false;
+
+        bool tieneOperador = formula.Contains('+') ||
+                             formula.Contains('-') ||
+                             formula.Contains('*') ||
+                             formula.Contains('/') ||
+                             formula.Contains('^');
+
+        if (tieneOperador)
             return true;
 
-        return RegexFuncionesEstadisticas.IsMatch(formula) || RegexFormulasAlgebraicas.IsMatch(formula);
+        var funciones = RegexTokenFuncion.Matches(formula)
+            .Select(m => m.Groups[1].Value)
+            .Where(v => !string.IsNullOrWhiteSpace(v));
+
+        return funciones.Any(f => FuncionesSoporteAlgebraico.Contains(f));
     }
 
     private CeldaNormalizada? BuscarCeldaCandidataMasProxima(IEnumerable<CeldaNormalizada> celdas, double valorEsperado, double? valorRecalculado, string nombreMetrica)
     {
-        double ventanaMaster = Math.Max(Math.Abs(valorEsperado) * _options.CandidateSearch.RelativeWindowPercentage, _options.CandidateSearch.MinimumAbsoluteWindow);
-        double ventanaArrastre = valorRecalculado.HasValue ? Math.Max(Math.Abs(valorRecalculado.Value) * _options.CandidateSearch.RelativeWindowPercentage, _options.CandidateSearch.MinimumAbsoluteWindow) : 0;
+        double ventanaMaster = Math.Max(Math.Abs(valorEsperado) * 0.15, 1.0);
+        double ventanaArrastre = valorRecalculado.HasValue ? Math.Max(Math.Abs(valorRecalculado.Value) * 0.15, 1.0) : 0;
 
         var celdasNumericas = celdas.Where(c => c.EsNumerica).ToList();
+        var filasDatosCrudos = DetectarFilasDatosCrudos(celdasNumericas);
+
+        var candidatasContextuales = celdasNumericas
+            .Where(c => c.TieneFormula || EsZonaControlResultados(c, filasDatosCrudos))
+            .ToList();
 
         bool EnVentana(double val)
         {
@@ -274,16 +303,30 @@ public sealed class EvaluationEngine : IEvaluationEngine
             return distArrastre <= ventanaArrastre;
         }
 
-        var formulasCompatibles = celdasNumericas
+        var formulasCompatibles = candidatasContextuales
             .Where(c => c.TieneFormula && c.Formula is not null && FormulaEsCompatibleConMetrica(c.Formula, nombreMetrica) && EnVentana(c.ValorNumerico!.Value));
 
         var mejorPorFormula = EncontrarCeldaMasProxima(formulasCompatibles, valorEsperado, valorRecalculado);
         if (mejorPorFormula is not null)
             return mejorPorFormula;
 
-        var candidatasPorVentana = celdasNumericas.Where(c => EnVentana(c.ValorNumerico!.Value));
+        var candidatasPorVentana = candidatasContextuales.Where(c => EnVentana(c.ValorNumerico!.Value));
         return EncontrarCeldaMasProxima(candidatasPorVentana, valorEsperado, valorRecalculado);
     }
+
+    private static HashSet<int> DetectarFilasDatosCrudos(IReadOnlyList<CeldaNormalizada> celdasNumericas)
+    {
+        // Heurística: filas con al menos 2 valores numéricos sin fórmula son observaciones crudas.
+        return celdasNumericas
+            .Where(c => !c.TieneFormula)
+            .GroupBy(c => c.Fila)
+            .Where(g => g.Count() >= 2)
+            .Select(g => g.Key)
+            .ToHashSet();
+    }
+
+    private static bool EsZonaControlResultados(CeldaNormalizada celda, HashSet<int> filasDatosCrudos)
+        => !filasDatosCrudos.Contains(celda.Fila);
 
     private static CeldaNormalizada? EncontrarCeldaMasProxima(IEnumerable<CeldaNormalizada> celdas, double valorEsperado, double? valorRecalculado)
     {
@@ -369,6 +412,7 @@ public sealed class EvaluationEngine : IEvaluationEngine
 
     private static double RecalcularCovarianza(double[] x, double[] y, double promedioX, double promedioY)
     {
+        // n dinámico: usa la cantidad real extraída del archivo del alumno.
         int n = Math.Min(x.Length, y.Length);
         if (n == 0) return 0;
         return Enumerable.Range(0, n).Sum(i => (x[i] - promedioX) * (y[i] - promedioY)) / n;
@@ -376,8 +420,10 @@ public sealed class EvaluationEngine : IEvaluationEngine
 
     private static double RecalcularDesvio(double[] datos, double promedio)
     {
-        if (datos.Length == 0) return 0;
-        return Math.Sqrt(datos.Sum(d => Math.Pow(d - promedio, 2)) / datos.Length);
+        // n dinámico: se adapta a la longitud real del vector del alumno (incluye variaciones metodológicas).
+        int n = datos.Length;
+        if (n == 0) return 0;
+        return Math.Sqrt(datos.Sum(d => Math.Pow(d - promedio, 2)) / n);
     }
 
     private static double RecalcularPearson(double covarianza, double desvX, double desvY) => (desvX * desvY) == 0 ? 0 : covarianza / (desvX * desvY);

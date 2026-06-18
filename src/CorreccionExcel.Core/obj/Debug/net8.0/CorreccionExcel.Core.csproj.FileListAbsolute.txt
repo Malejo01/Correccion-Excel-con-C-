@@ -9,3 +9,4 @@ C:\Programacion\Correccion Excel con C#\src\CorreccionExcel.Core\obj\Debug\net8.
 C:\Programacion\Correccion Excel con C#\src\CorreccionExcel.Core\obj\Debug\net8.0\refint\CorreccionExcel.Core.dll
 C:\Programacion\Correccion Excel con C#\src\CorreccionExcel.Core\obj\Debug\net8.0\CorreccionExcel.Core.pdb
 C:\Programacion\Correccion Excel con C#\src\CorreccionExcel.Core\obj\Debug\net8.0\ref\CorreccionExcel.Core.dll
+c:\Programacion\Correccion Excel con C#\src\CorreccionExcel.Core\obj\Debug\net8.0\CorreccionExcel.Core.sourcelink.json

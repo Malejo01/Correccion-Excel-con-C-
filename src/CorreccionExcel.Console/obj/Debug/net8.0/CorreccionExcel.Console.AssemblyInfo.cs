@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CorreccionExcel.Console")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cdc39e4ec160790e416bf5eadffa7f0858c8ae1c")]
 [assembly: System.Reflection.AssemblyProductAttribute("CorreccionExcel.Console")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CorreccionExcel.Console")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
